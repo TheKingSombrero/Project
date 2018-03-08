@@ -41,6 +41,8 @@ router.post('/makemission', function(req,res,next){
     res.send("Mission Created!");
   });
 });
+
+
 router.post('/login', function(req,res,next){
   var name=req.body.username;
   var pass=req.body.pass;
@@ -51,22 +53,22 @@ router.post('/login', function(req,res,next){
     password: "root",
     database: "Project"
   });
-  
+
   con.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
-    var sql="SELECT username,password FROM Users WHERE username = "+mysql.escape(name)+" AND password = "+mysql.escape(pass)+';';
+    var sql="SELECT id,username,password FROM Users WHERE username = "+mysql.escape(name)+" AND password = "+mysql.escape(pass)+';';
     console.log(sql);
     con.query(sql,function (err,result){
       if (err) throw err;
       var resa=result;
       console.log("a");
-      if (resa.length<0){
+      if (resa.length<=0){
         res.send("User Doesn't exist");
       }
       else{
-        res.redirect("GOOGLE.COM");
-        console.log("b");
+        res.cookie("user_id", resa[0]);
+        res.redirect('/');
       }
     });
 
