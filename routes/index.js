@@ -32,7 +32,8 @@ router.post('/makemission', function(req,res,next){
   con.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = "INSERT INTO `Project`.`missions` (`name`, `description`) VALUES ("+mysql.escape(name)+','+mysql.escape(desc)+');';
+
+    var sql = "INSERT INTO `Project`.`missions` (`name`, `description`,userid) VALUES ("+mysql.escape(name)+','+mysql.escape(desc)+','+req.cookies.user_id+');';
     console.log(sql);
     con.query(sql, function (err, result) {
       if (err) throw err;
@@ -57,19 +58,23 @@ router.post('/login', function(req,res,next){
   con.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
-    var sql="SELECT id,username,password FROM Users WHERE username = "+mysql.escape(name)+" AND password = "+mysql.escape(pass)+';';
-    console.log(sql);
+    var sql="SELECT username,password FROM Users WHERE username = "+mysql.escape(name)+" AND password = "+mysql.escape(pass)+';';
     con.query(sql,function (err,result){
       if (err) throw err;
-      var resa=result;
-      console.log("a");
-      if (resa.length<=0){
-        res.send("User Doesn't exist");
+      if (result.length<=0){
+        console.log("Login Failed")
+        res.redirect("/login.html");
       }
       else{
-        res.cookie("user_id", resa[0]);
+        var sql="SELECT id,username,password FROM Users WHERE username = "+mysql.escape(name)+" AND password = "+mysql.escape(pass)+';';
+        con.query(sql,function (err,result){
+          if (err) throw err;
+        console.log('user # '+ result[0].id +' logged in');
+        res.cookie("user_id", result[0].id);
         res.redirect('/');
-      }
+      });
+    }
+
     });
 
   });
