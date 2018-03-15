@@ -1,16 +1,20 @@
 var express = require('express');
 var mysql=require('mysql');
 var router = express.Router();
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
   database: "Project"
 });
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.sendFile('/register.html');
 });
+
+
 router.post('/newuser',function(req,res,next){
   var name=req.body.user;
   var password=req.body.pass1;
@@ -62,7 +66,7 @@ router.post('/login', function(req,res,next){
     con.query(sql,function (err,result){
       if (err) throw err;
       if (result.length<=0){
-        console.log("Login Failed")
+        console.log("Login Failed");
         res.redirect("/login.html");
       }
       else{
@@ -72,14 +76,20 @@ router.post('/login', function(req,res,next){
         console.log('user # '+ result[0].id +' logged in');
         res.cookie("user_id", result[0].id);
         res.redirect('/');
-      });
-    }
-
-    });
-
+      });//query
+    }//else
+    });//query
   });
 });
 
+
+router.post('/retmissions', function(req,res,next){
+  var id=req.cookies.user_id;
+  var sql="SELECT * FROM missions where userid="+id;
+  con.query(sql,function (err,result) {
+    return result;
+  });
+});
 
 
 
