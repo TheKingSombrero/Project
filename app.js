@@ -13,7 +13,16 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.use(function(req, res, next) {
+  req.headers['if-none-match'] = 'no-match-for-this';
+  next();    
+});
+app.get('/mission.html', function(req, res, next) {
+  if(req.query.cookie=="" || req.query.cookie==null){
+    res.cookie("n");
+    res.redirect('/index.html');
+  }
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

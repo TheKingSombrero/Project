@@ -1,21 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<html>
+<title>Mission-Keeping</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-    span+span{
-        margin-left:15%;
-    }
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
 </style>
+<script>
+  if (document.cookie=="n=undefined; "){
+    alert("Can't create a mission while logged out. Please log in or register")
+  }
+  function checkLogged(){
+    debugger
+    var x=document.cookie.indexOf('user_id')
+    if (document.cookie.indexOf('user_id')>=0)
+      alert("already logged in");
+    else{
+      document.getElementById('id01').style.display='block'
+    }
+    } 
+</script>
 <body>
-    <h1 style="text-align:center">Welcome to note-keeping site</h1>   
-            
-    <span><a href="/register.html">Register Here!</a></span>
-    <span> <a href="/login.html">Login Here!</a></span>
-    <span><a href="mission.html">Create a Mission</a></span>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
+  <h1 class="w3-xlarge">MISSION-KEEPING</h1>
+  <h1>Sample Text</h1>
+  
+  <div class="w3-padding-32">
+    <div class="w3-bar w3-border">
+      <a href="/index2.html" class="w3-bar-item w3-button">Home</a>
+      <a href="/register.html" class="w3-bar-item w3-button w3-light-grey">Register</a>
+      <button onclick="checkLogged()" class="w3-bar-item w3-button">Login</button>
+      <a href="/mission.html" class="w3-bar-item w3-button">Create Mission</a>
+      <a href="/ret.html" class="w3-bar-item w3-button w3-hide-small">View Missions</a>
+          <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">  
+                    <div class="w3-center"><br>
+                      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                    </div>
+              
+                    <form class="w3-container" action="/login" method="post">
+                      <div class="w3-section">
+                        <label><b>Username</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" id="username" required>
+                        <label><b>Password</b></label>
+                        <input class="w3-input w3-border" type="text" placeholder="Enter Password" name="pass" id="pass" required>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+                      </div>
+                    </form> 
+                    </div>
+      
+    </div>
+  </div>
+</header>
+
+
+  
+<!-- End Page Content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large"> 
+ 
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
+
 </body>
 </html>

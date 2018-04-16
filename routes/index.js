@@ -10,8 +10,11 @@ var con = mysql.createConnection({
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.sendFile('/register.html');
+router.get('/mission.html', function(req, res, next) {
+  if(req.query.cookie=="" || req.query.cookie==null){
+    res.cookie("n");
+    res.redirect('/index.html');
+  }
 });
 
 
@@ -74,8 +77,9 @@ router.post('/login', function(req,res,next){
         con.query(sql,function (err,result){
           if (err) throw err;
         console.log('user # '+ result[0].id +' logged in');
+        res.clearCookie("n")
         res.cookie("user_id", result[0].id);
-        res.redirect('/');
+        res.redirect('/index.html');
       });//query
     }//else
     });//query
@@ -84,10 +88,13 @@ router.post('/login', function(req,res,next){
 
 
 router.post('/retmissions', function(req,res,next){
+  console.log("Entered");
   var id=req.cookies.user_id;
-  var sql="SELECT * FROM missions where userid="+id;
+  var sql="SELECT name,description FROM missions where userid="+id;
   con.query(sql,function (err,result) {
-    return result;
+    console.log(result);
+    res.json(result);
+    res.redirect('/table.html');
   });
 });
 
