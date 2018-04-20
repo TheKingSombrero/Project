@@ -9,15 +9,7 @@ var con = mysql.createConnection({
   database: "Project"
 });
 
-/* GET home page. */
-router.get('/mission.html', function(req, res, next) {
-  if(req.query.cookie=="" || req.query.cookie==null){
-    res.cookie("n");
-    res.redirect('/index.html');
-  }
-});
-
-
+//user creation
 router.post('/newuser',function(req,res,next){
   var name=req.body.user;
   var password=req.body.pass1;
@@ -32,7 +24,7 @@ router.post('/newuser',function(req,res,next){
       res.send("Thank You!");
     });
 });
-
+//mission creation
 router.post('/makemission', function(req,res,next){
   var name=req.body.name;
   var desc=req.body.desc;
@@ -50,7 +42,7 @@ router.post('/makemission', function(req,res,next){
   });
 });
 
-
+//login
 router.post('/login', function(req,res,next){
   var name=req.body.username;
   var pass=req.body.pass;
@@ -77,29 +69,21 @@ router.post('/login', function(req,res,next){
         con.query(sql,function (err,result){
           if (err) throw err;
         console.log('user # '+ result[0].id +' logged in');
-        res.clearCookie("n")
+        if (req.cookie.loggedIn==false) res.clearCookie('loggedIn');
         res.cookie("user_id", result[0].id);
-        res.redirect('/index.html');
+        res.redirect('/');
       });//query
     }//else
     });//query
   });
 });
 
-
+//mission retrieving
 router.post('/retmissions', function(req,res,next){
-  console.log("Entered");
   var id=req.cookies.user_id;
-  var sql="SELECT name,description FROM missions where userid="+id;
+  var sql="SELECT * FROM missions where userid="+id;
   con.query(sql,function (err,result) {
-    console.log(result);
-    res.json(result);
-    res.redirect('/table.html');
+    return result;
   });
 });
-
-
-
-
-
-module.exports = router;
+module.exports=router;

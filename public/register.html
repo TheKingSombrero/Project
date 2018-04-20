@@ -4,35 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <script>
     function check(){
         var x=document.getElementById("pass1").value;
         var y=document.getElementById("pass2").value;
-        var z=document.getElementById("user").value;
         if (x!=y || z=='' || x =='' || y==''){
         document.getElementById("par").innerHTML="<h2>Something's Wrong</h2>";
         return false;}
         return true;
     }
-
-
-
 </script>
 <body>
-    <form action="/newuser" method="post" onSubmit="return check()">
-    <h3>Please enter your username:</h3>
-    <input type="text" id="user" name="user">
-    <h3>Please enter your password:</h3>
-    <input type="password" id="pass1" name="pass1">
-    <h3>Enter your password again</h3>
-    <input type="password" id="pass2" name="pass2" >
-    <p id="par"></p>
-    
-    
-    
-    <input type="submit" value="Register!">
-    </form>
+
+<header class="w3-container w3-teal">
+  <h1>Create A User</h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-center">
+
+<form class="w3-container w3-card-4" action="/newuser" method="post" onsubmit="return check()">
+<div class="w3-container w3-half w3-margin-center">
+
+<form class="w3-container w3-card-4" action="/newuser" method="post" onsubmit="">
+<p>
+<input class="w3-input" type="text" style="width:90%" name="user" id="user" required>
+<label>Name</label></p>
+<p>
+<input class="w3-input" type="password" style="width:90%" name="pass1" id="pass1" required>
+<label>Password</label></p>
+
+<input class="w3-input" type="password" style="width:90%" name="pass2" id="pass2" required>
+<label>Password Again</label></p>
+
+<p>
+<button class="w3-button w3-section w3-teal w3-ripple"> Register! </button></p>
+
+</form>
+<p id="par">
+</p>
+
+</div>
+
 </body>
-</html>
+</html> 

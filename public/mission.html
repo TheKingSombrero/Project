@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Mission</title>
 </head>
 <body>
-    <form action="/makemission" method="post">
-    <h3>Enter Mission Name:</h3>
-    <input type="text" id="name" name="name">
-    <h3>Enter Mission Description</h3>
-    <input type="text" id="desc" name="desc">
-    <input type="submit" value="Make!">
     
-    </form>
 </body>
 </html>
+<div class="w3-container w3-half w3-margin-center">
+
+    <form class="w3-container w3-card-4" action="/makemission" method="post" >
+    <div class="w3-container w3-half w3-margin-center">
+    <p>
+    <input class="w3-input" type="text" style="width:90%" name="name" id="name" required>
+    <label>Name</label></p>
+    <p>
+    <input class="w3-input" type="text" style="width:90%" name="desc" id="desc" required>
+    <label>Description</label></p>
+    
+    <p>
+    <button class="w3-button w3-section w3-teal w3-ripple"> Make Mission</button></p>

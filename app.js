@@ -9,20 +9,24 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(function(req, res, next) {
+app.use(function(req, res, next) { //prevent HTTP 304 codes
   req.headers['if-none-match'] = 'no-match-for-this';
   next();    
 });
-app.get('/mission.html', function(req, res, next) {
-  if(req.query.cookie=="" || req.query.cookie==null){
-    res.cookie("n");
-    res.redirect('/index.html');
+
+app.get('/mission.html',function(req,res){ //prevent non logged in missions
+  cookie=req.cookie;
+  if (cookie!=null){
+  if (cookie.user_id>=0) return;}
+  else{
+    res.cookie("loggedIn",false);
+    res.redirect('index.html');
   }
 });
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

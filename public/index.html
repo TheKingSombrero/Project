@@ -9,14 +9,19 @@
 <style>
 body,h1 {font-family: "Raleway", Arial, sans-serif}
 h1 {letter-spacing: 6px}
+}
 .w3-row-padding img {margin-bottom: 12px}
 </style>
 <script>
-  if (document.cookie=="n=undefined; "){
+function delete_cookie(name) {
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+  if (document.cookie.indexOf('loggedIn')>=0){
     alert("Can't create a mission while logged out. Please log in or register")
+    delete_cookie('loggedIn')
   }
   function checkLogged(){
-    debugger
     var x=document.cookie.indexOf('user_id')
     if (document.cookie.indexOf('user_id')>=0)
       alert("already logged in");
@@ -37,7 +42,7 @@ h1 {letter-spacing: 6px}
   
   <div class="w3-padding-32">
     <div class="w3-bar w3-border">
-      <a href="/index2.html" class="w3-bar-item w3-button">Home</a>
+      <a href="/index.html" class="w3-bar-item w3-button">Home</a>
       <a href="/register.html" class="w3-bar-item w3-button w3-light-grey">Register</a>
       <button onclick="checkLogged()" class="w3-bar-item w3-button">Login</button>
       <a href="/mission.html" class="w3-bar-item w3-button">Create Mission</a>
